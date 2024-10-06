@@ -2,13 +2,13 @@ using UnityEngine;
 
 public class ExitButton : MonoBehaviour
 {
-    public void ExitGame() // Метод вызывается при нажатии кнопки
+    public void ExitGame() // РњРµС‚РѕРґ РІС‹Р·С‹РІР°РµС‚СЃСЏ РїСЂРё РЅР°Р¶Р°С‚РёРё РєРЅРѕРїРєРё
     {
         
-        Application.Quit(); // Закрытие игры при сборке
+        Application.Quit(); // Р—Р°РєСЂС‹С‚РёРµ РёРіСЂС‹ РїСЂРё СЃР±РѕСЂРєРµ
 
 
-#if UNITY_EDITOR //для консоли
+#if UNITY_EDITOR //РґР»СЏ РєРѕРЅСЃРѕР»Рё
         UnityEditor.EditorApplication.isPlaying = false;
 #endif
     }
