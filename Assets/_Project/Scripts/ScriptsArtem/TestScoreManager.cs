@@ -8,35 +8,37 @@ public class TestScoreManager : MonoBehaviour
     public TextMeshProUGUI scoreText;  // Ссылка на компонент Text
     public static event Action OnVictory;  // Событие победы
 
-    private void OnEnable() // Подписываемся на событие при старте
+    private void OnEnable()
     {
-        Debug.Log("ScoreManager подписался на событие смерти врага.");
-        TestEnemy.OnEnemyDeath += AddScore;
+        // Подписка должна происходить для каждого врага, а не через класс
+        TestEnemySpawner.OnEnemySpawned += OnEnemySpawned;  // Подписываемся на событие спавна врагов
     }
 
-    private void OnDisable() // Отписываемся при отключении объекта
+    private void OnDisable()
     {
-        TestEnemy.OnEnemyDeath -= AddScore;
+        TestEnemySpawner.OnEnemySpawned -= OnEnemySpawned;  // Отписываемся при отключении
     }
 
-    private void Start()
+    // Этот метод будет вызываться при спавне нового врага
+    private void OnEnemySpawned(TestEnemy enemy)
     {
-        UpdateScoreText(); 
+        enemy.OnEnemyDeath += AddScore;  // Подписываемся на событие смерти конкретного врага
     }
-    private void AddScore() // плюс счет
+
+    private void AddScore()
     {
         score++;
-        Debug.Log("Событие смерти врага сработало, добавляем очко. Текущий счёт: " + score);
-        Debug.Log("Score: " + score);
         UpdateScoreText();
-        
-        if (score >= 5)
-        {
-            OnVictory?.Invoke();  // Вызов события победы, если есть подписчики
-        }
     }
-    private void UpdateScoreText()  // Метод для обновления текста
+
+    private void UpdateScoreText()
     {
         scoreText.text = "Score: " + score;
+    }
+
+    // Метод для получения текущего счёта
+    public int GetScore()
+    {
+        return score;
     }
 }
