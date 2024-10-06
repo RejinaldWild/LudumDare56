@@ -10,7 +10,7 @@ public class UnitMovement : MonoBehaviour
     }
     
     [SerializeField] private Camera _mainCamera;
-    [SerializeField] private ScriptableObject _unitCoonfig;
+    [SerializeField] private UnitConfig _unitCoonfig;
     [SerializeField] private UnitSelectionManager _unitSelectionManager;
     [SerializeField] private float _force = 5f;
     
